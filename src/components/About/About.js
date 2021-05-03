@@ -1,4 +1,5 @@
 import React from "react";
+import emailjs from 'emailjs-com';
 import { Container, Row, Col } from "react-bootstrap";
 import Particle from "../Particle";
 import "../../style.css";
@@ -9,6 +10,19 @@ import Aboutcard from "./AboutCard";
 import laptopImg from "../../Assets/about.png";
 
 function About() {
+
+  function sendEmail(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('service_buftgmp', 'template_i9vjjek', e.target, 'user_J2luXDhuEQdodYrpbSNQh')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+      e.target.reset();
+  }
+
   return (
     <Container fluid className="about-section">
       <Particle />
@@ -29,10 +43,28 @@ function About() {
           </Col>
           <Col
             md={5}
-            style={{ paddingTop: "120px", paddingBottom: "50px" }}
+            style={{ paddingTop: "120px", paddingBottom: "50px"}}
             className="about-img"
           >
-            <img src={laptopImg} alt="about" className="img-fluid" />
+            <h2>Contract me</h2>
+            {/* <img src={laptopImg} alt="about" className="img-fluid" /> */}
+            <form className="contact-form" onSubmit={sendEmail}>
+              {/* <input type="hidden" name="contact_number" /> */}
+              <br></br>
+              <label>Name</label>
+              <br></br>
+              <input type="text" name="name" />
+              <br></br>
+              <label>Email</label>
+              <br></br>
+              <input type="email" name="email" />
+              <br></br>
+              <label>Message</label>
+              <br></br>
+              <textarea name="message" />
+              <br></br>
+              <input type="submit" value="Send" />
+            </form>
           </Col>
         </Row>
         <h1 className="project-heading">
@@ -48,7 +80,7 @@ function About() {
           <Techstack iconName="devicon-express-original-wordmark" />
           <Techstack iconName="devicon-react-original-wordmark" />
           <Techstack iconName="devicon-mongodb-plain-wordmark" />
-          
+
           <Techstack iconName="devicon-bootstrap-plain-wordmark" />
         </Row>
         <h1 className="project-heading">
